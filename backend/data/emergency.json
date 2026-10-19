@@ -1,0 +1,198 @@
+{
+  "numbers": [
+    {"label": "Emergency (all services)", "number": "112"},
+    {"label": "Ambulance", "number": "108"},
+    {"label": "Tele-MANAS mental health helpline", "number": "14416"}
+  ],
+  "guides": [
+    {
+      "id": "chest_pain",
+      "title": "Possible heart attack",
+      "keywords": ["chest pain", "chest tightness", "chest pressure", "crushing chest", "pain in left arm", "pain spreading to arm", "pain spreading to jaw", "heart attack"],
+      "steps": [
+        "Call 112 or 108 now. Do not drive yourself to hospital.",
+        "Stop all activity and sit down in a comfortable half-sitting position.",
+        "Loosen tight clothing around the neck, chest and waist.",
+        "If you are not allergic to aspirin and no doctor has told you to avoid it, chew one 300 mg aspirin tablet slowly.",
+        "Keep someone with you. Do not eat or drink.",
+        "If the person becomes unresponsive and is not breathing normally, start CPR: push hard and fast in the centre of the chest, 100-120 pushes a minute, until help arrives."
+      ],
+      "source": "https://www.nhs.uk/conditions/heart-attack/"
+    },
+    {
+      "id": "breathing",
+      "title": "Severe breathing difficulty",
+      "keywords": ["cannot breathe", "can't breathe", "cant breathe", "difficulty breathing", "trouble breathing", "severe shortness of breath", "gasping", "choking", "lips turning blue", "blue lips"],
+      "steps": [
+        "Call 112 or 108 now.",
+        "Sit upright and lean slightly forward. Do not lie flat.",
+        "Loosen tight clothing and get fresh air.",
+        "If you have a reliever inhaler prescribed for asthma, use it as your doctor told you.",
+        "If someone is choking and cannot cough or speak: give 5 firm back blows between the shoulder blades, then 5 abdominal thrusts. Repeat until the object comes out or help arrives.",
+        "If the person stops breathing, start CPR."
+      ],
+      "source": "https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-choking"
+    },
+    {
+      "id": "stroke",
+      "title": "Possible stroke",
+      "keywords": ["face drooping", "face droop", "slurred speech", "sudden weakness on one side", "one side weak", "numbness on one side", "cannot move one side", "sudden confusion", "sudden loss of vision", "worst headache of my life", "sudden severe headache"],
+      "steps": [
+        "Call 112 or 108 now. Every minute matters.",
+        "Note the exact time the symptoms started and tell the ambulance team.",
+        "Check BE-FAST: Balance loss, Eyes (vision loss), Face drooping, Arm weakness, Speech trouble, Time to call.",
+        "If the person is drowsy, lay them on their side (recovery position).",
+        "Do not give food, drink or any medicine, including aspirin."
+      ],
+      "source": "https://www.stroke.org/en/about-stroke/stroke-symptoms"
+    },
+    {
+      "id": "severe_bleeding",
+      "title": "Severe bleeding",
+      "keywords": ["heavy bleeding", "bleeding won't stop", "bleeding wont stop", "bleeding not stopping", "vomiting blood", "blood in vomit", "coughing blood", "coughing up blood", "black tarry stool"],
+      "steps": [
+        "Call 112 or 108.",
+        "For a wound: press firmly on it with a clean cloth. If blood soaks through, add more cloth on top; do not remove the first one.",
+        "Raise the injured part above heart level if possible.",
+        "If the person feels faint, lay them down and raise their legs.",
+        "If vomiting or coughing blood: lie on the side, give nothing by mouth, go to hospital immediately."
+      ],
+      "source": "https://www.redcross.org/take-a-class/resources/learn-first-aid/severe-bleeding"
+    },
+    {
+      "id": "unconscious",
+      "title": "Unconscious or collapsed",
+      "keywords": ["unconscious", "passed out", "fainted", "not responding", "unresponsive", "collapsed"],
+      "steps": [
+        "Call 112 or 108.",
+        "Check if the person responds when you tap their shoulders and speak loudly.",
+        "Check breathing for up to 10 seconds.",
+        "If breathing: turn them on their side (recovery position) and keep checking breathing.",
+        "If not breathing normally: start CPR, 100-120 chest pushes a minute, until help arrives."
+      ],
+      "source": "https://www.redcross.org/take-a-class/cpr/performing-cpr/cpr-steps"
+    },
+    {
+      "id": "seizure",
+      "title": "Seizure (fits)",
+      "keywords": ["seizure", "fits", "convulsion", "convulsions", "fitting"],
+      "steps": [
+        "Note the time the seizure started.",
+        "Move hard or sharp objects away and cushion the head.",
+        "Do not hold the person down and do not put anything in their mouth.",
+        "After the jerking stops, turn them on their side and stay with them.",
+        "Call 112 or 108 if it lasts more than 5 minutes, it is the first seizure, the person is injured, pregnant, or does not wake up."
+      ],
+      "source": "https://www.cdc.gov/epilepsy/first-aid-for-seizures/"
+    },
+    {
+      "id": "poisoning",
+      "title": "Poisoning or overdose",
+      "keywords": ["poison", "poisoning", "overdose", "took too many tablets", "swallowed pesticide", "pesticide", "drank kerosene", "swallowed acid"],
+      "steps": [
+        "Call 112 or 108 now.",
+        "Do not try to make the person vomit.",
+        "Keep the container, tablet strip or plant and take it to hospital.",
+        "If the poison is on the skin or in the eyes, rinse with running water for 15-20 minutes.",
+        "If the person is drowsy but breathing, lay them on their side."
+      ],
+      "source": "https://www.nhs.uk/conditions/poisoning/"
+    },
+    {
+      "id": "snake_bite",
+      "title": "Snake bite",
+      "keywords": ["snake bite", "snakebite", "bitten by a snake", "bitten by snake"],
+      "steps": [
+        "Go to the nearest hospital with anti-snake venom immediately. Call 108.",
+        "Keep calm and keep the bitten limb still, at or below heart level.",
+        "Remove rings, watches and tight clothing near the bite.",
+        "Do NOT cut the wound, suck the venom, tie a tight tourniquet or apply ice."
+      ],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/snakebite-envenoming"
+    },
+    {
+      "id": "anaphylaxis",
+      "title": "Severe allergic reaction",
+      "keywords": ["swollen tongue", "swollen lips", "swelling of face", "face swelling", "throat closing", "throat swelling", "anaphylaxis"],
+      "steps": [
+        "If you have an adrenaline (epinephrine) auto-injector, use it now in the outer thigh.",
+        "Call 112 or 108.",
+        "Lie down with legs raised. If breathing is hard, sit up instead.",
+        "If there is no improvement after 5 minutes and you have a second auto-injector, use it."
+      ],
+      "source": "https://www.nhs.uk/conditions/anaphylaxis/"
+    },
+    {
+      "id": "suicidal",
+      "title": "Thoughts of suicide or self-harm",
+      "keywords": ["suicide", "suicidal", "kill myself", "end my life", "self harm", "self-harm", "want to die", "hurt myself"],
+      "steps": [
+        "You are not alone, and help is available right now.",
+        "Call Tele-MANAS on 14416 (free, 24x7) or 112 if you are in immediate danger.",
+        "Tell someone you trust and stay with them. Do not stay alone.",
+        "Move away from anything you could use to hurt yourself."
+      ],
+      "source": "https://telemanas.mohfw.gov.in/"
+    },
+    {
+      "id": "serious_infection",
+      "title": "Fever with danger signs",
+      "keywords": ["stiff neck", "rash that does not fade", "fever with confusion", "bleeding gums", "blood in urine"],
+      "steps": [
+        "Go to a hospital emergency department now or call 108.",
+        "Fever with stiff neck, a rash that does not fade on pressing, confusion or bleeding can be a sign of a serious infection such as meningitis or severe dengue.",
+        "Do not take ibuprofen or aspirin until a doctor has seen you.",
+        "Keep drinking fluids if you can swallow safely."
+      ],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+    },
+    {
+      "id": "severe_abdominal_pain",
+      "title": "Severe abdominal pain",
+      "keywords": ["severe abdominal pain", "severe stomach pain", "unbearable stomach pain", "rigid abdomen"],
+      "steps": [
+        "Go to a hospital emergency department now or call 108.",
+        "Do not eat or drink until a doctor has examined you.",
+        "Do not take painkillers or laxatives, as they can hide the cause.",
+        "Note when the pain started, where it is and whether you have vomited."
+      ],
+      "source": "https://medlineplus.gov/ency/article/003120.htm"
+    },
+    {
+      "id": "burns",
+      "title": "Serious burn",
+      "keywords": ["severe burn", "badly burnt", "badly burned", "burn on face"],
+      "steps": [
+        "Cool the burn under cool running water for 20 minutes. Do not use ice.",
+        "Remove rings, watches and clothing near the burn unless stuck to the skin.",
+        "Cover loosely with cling film or a clean cloth.",
+        "Do not apply toothpaste, butter, oil or creams.",
+        "Call 108 for large burns, burns on the face, hands or genitals, or electrical/chemical burns."
+      ],
+      "source": "https://www.nhs.uk/conditions/burns-and-scalds/"
+    },
+    {
+      "id": "head_injury",
+      "title": "Head injury",
+      "keywords": ["head injury", "hit my head", "fell on my head", "vomiting after head injury"],
+      "steps": [
+        "Call 108 if there was loss of consciousness, repeated vomiting, confusion, a seizure, or blood/fluid from the ear or nose.",
+        "Keep the person still and hold a cold pack wrapped in cloth on any swelling.",
+        "Do not leave them alone for the first 24 hours.",
+        "Do not give sleeping pills, alcohol or aspirin."
+      ],
+      "source": "https://www.nhs.uk/conditions/head-injury-and-concussion/"
+    },
+    {
+      "id": "critical_lab",
+      "title": "Critical lab value",
+      "keywords": [],
+      "steps": [
+        "One or more lab values in your report are in a dangerous range.",
+        "Contact your doctor or go to a hospital emergency department today. Take the report with you.",
+        "If you feel very unwell, faint, confused or breathless, call 108 now."
+      ],
+      "source": "https://medlineplus.gov/lab-tests/"
+    }
+  ]
+}

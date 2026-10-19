@@ -1,0 +1,468 @@
+{
+  "_note": "Curated condition knowledge. Used for offline scoring, follow-up questions, RAG documents, medicine candidates and diet rules. 'mild' = the natural (no-medicine) plan may be offered.",
+  "synonyms": {
+    "bukhar": "fever", "khansi": "cough", "sir dard": "headache", "sar dard": "headache", "pet dard": "stomach pain",
+    "ulti": "vomiting", "dast": "loose motions", "kamzori": "weakness", "thakan": "fatigue", "chakkar": "dizziness",
+    "jukam": "runny nose", "zukam": "runny nose", "gala dard": "sore throat", "jalan": "burning", "kabz": "constipation",
+    "tired": "fatigue", "tiredness": "fatigue", "diarrhoea": "diarrhea", "loose stools": "loose motions", "throwing up": "vomiting",
+    "temperature": "fever", "high temperature": "fever", "breathlessness": "shortness of breath", "acidity": "acidity"
+  },
+  "generic_questions": [
+    {"q": "Do you have fever? If yes, how high (if measured) and since when?", "type": "text"},
+    {"q": "Are you taking any medicines right now for this problem?", "type": "text"},
+    {"q": "Have you had this problem before?", "type": "yes_no"},
+    {"q": "Has anyone around you (family, office, school) had similar symptoms recently?", "type": "yes_no"},
+    {"q": "How is your sleep, appetite and water intake these days?", "type": "text"}
+  ],
+  "conditions": [
+    {
+      "id": "common_cold", "name": "Common cold (viral upper respiratory infection)", "mild": true, "urgency": "low",
+      "symptoms": {"runny nose": 3, "blocked nose": 3, "stuffy nose": 3, "sneezing": 3, "sore throat": 2, "cough": 1, "mild fever": 1, "body ache": 1, "headache": 1},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Is your nasal discharge clear, or yellow/green?", "type": "choice", "options": ["Clear", "Yellow/green", "No discharge"]},
+        {"q": "Do you have fever above 101 F (38.3 C)?", "type": "yes_no"},
+        {"q": "Do you have any breathing difficulty or wheezing?", "type": "yes_no"}
+      ],
+      "overview": "The common cold is a viral infection of the nose and throat. It usually gets better on its own in 7-10 days.",
+      "self_care": ["Rest and drink plenty of warm fluids", "Steam inhalation and salt-water gargles", "Saline nasal drops for a blocked nose"],
+      "see_doctor_if": ["Symptoms last more than 10 days", "Fever above 102 F or lasting more than 3 days", "Breathing difficulty, chest pain or ear pain"],
+      "diet": {"include": ["warm", "vit_c", "hydrating", "light"], "avoid": ["cold", "fried"]},
+      "remedies": ["steam_inhalation", "salt_water_gargle", "ginger_honey_tea", "turmeric_milk", "tulsi_tea"],
+      "meds": ["paracetamol", "cetirizine", "saline_nasal"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/commoncold.html"
+    },
+    {
+      "id": "influenza", "name": "Influenza (flu)", "mild": false, "urgency": "moderate",
+      "symptoms": {"fever": 2, "high fever": 3, "body ache": 3, "chills": 2, "fatigue": 2, "dry cough": 2, "cough": 1, "headache": 1, "sore throat": 1},
+      "lab_signals": [], "suggested_tests": ["Complete blood count (CBC)"], "needs_lab": false,
+      "follow_up": [
+        {"q": "Did the fever and body ache start suddenly?", "type": "yes_no"},
+        {"q": "What is your highest measured temperature?", "type": "text"},
+        {"q": "Do you have any chronic illness such as diabetes, asthma or heart disease?", "type": "text"}
+      ],
+      "overview": "Flu is a viral infection that causes sudden fever, body aches and tiredness. Most people recover in 1-2 weeks, but older adults, pregnant women and people with chronic illness can get complications.",
+      "self_care": ["Rest at home and avoid spreading it", "Drink fluids regularly", "Paracetamol can lower fever and ache"],
+      "see_doctor_if": ["Breathing difficulty or chest pain", "Fever lasting more than 3 days", "You are over 65, pregnant or have a chronic illness"],
+      "diet": {"include": ["warm", "hydrating", "light", "protein", "vit_c"], "avoid": ["fried", "cold"]},
+      "remedies": ["ginger_honey_tea", "steam_inhalation", "tulsi_tea"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/flu.html"
+    },
+    {
+      "id": "viral_fever", "name": "Viral fever", "mild": false, "urgency": "moderate",
+      "symptoms": {"fever": 3, "body ache": 2, "fatigue": 2, "headache": 1, "chills": 1, "weakness": 1, "loss of appetite": 1},
+      "lab_signals": [["lymphocytes", "high", 1], ["wbc", "low", 1]], "suggested_tests": ["Complete blood count (CBC)", "Dengue NS1 / IgM if fever > 2 days", "Malaria test"], "needs_lab": true,
+      "follow_up": [
+        {"q": "How many days have you had fever, and is it continuous or coming and going?", "type": "text"},
+        {"q": "Do you have a rash, bleeding gums, or pain behind the eyes?", "type": "yes_no"},
+        {"q": "Do you have shivering with fever at fixed times?", "type": "yes_no"}
+      ],
+      "overview": "Viral fever is a general term for fever caused by a virus. It usually settles in 3-7 days. In India, dengue, malaria and typhoid must be ruled out when fever lasts more than 2-3 days.",
+      "self_care": ["Rest and drink 2.5-3 litres of fluids a day", "Sponge with lukewarm water for high fever", "Paracetamol for fever; avoid ibuprofen/aspirin until dengue is ruled out"],
+      "see_doctor_if": ["Fever lasts more than 3 days", "Rash, bleeding, severe abdominal pain or vomiting", "Drowsiness or confusion"],
+      "diet": {"include": ["hydrating", "light", "soft", "protein"], "avoid": ["fried", "spicy", "heavy"]},
+      "remedies": ["ors_homemade", "tulsi_tea", "coconut_water"],
+      "meds": ["paracetamol", "ors"], "avoid_meds": ["ibuprofen", "aspirin"],
+      "source": "https://medlineplus.gov/fever.html"
+    },
+    {
+      "id": "dengue", "name": "Dengue fever", "mild": false, "urgency": "high",
+      "symptoms": {"high fever": 3, "fever": 2, "pain behind eyes": 3, "joint pain": 2, "muscle pain": 2, "rash": 2, "bleeding gums": 3, "headache": 1, "body ache": 2, "vomiting": 1},
+      "lab_signals": [["platelets", "low", 3], ["wbc", "low", 2], ["pcv", "high", 1], ["sgot", "high", 1]],
+      "suggested_tests": ["Dengue NS1 antigen (first 5 days)", "Dengue IgM", "CBC with platelet count (repeat daily if low)"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Do you have pain behind the eyes or severe joint/muscle pain?", "type": "yes_no"},
+        {"q": "Any red spots on skin, bleeding gums or nose bleeds?", "type": "yes_no"},
+        {"q": "Is there dengue in your area or have many mosquito bites recently?", "type": "yes_no"}
+      ],
+      "overview": "Dengue is a mosquito-borne viral infection common in India during and after monsoon. It causes high fever, severe body pain and can lower platelets. Warning signs usually appear when the fever goes down (days 3-7).",
+      "self_care": ["Drink plenty of fluids (ORS, coconut water, soups)", "Paracetamol only for fever", "Daily platelet count as advised by doctor"],
+      "see_doctor_if": ["Any bleeding, severe abdominal pain, persistent vomiting", "Restlessness, drowsiness or cold clammy skin", "Platelets below 1,00,000"],
+      "diet": {"include": ["hydrating", "light", "soft", "vit_c", "protein"], "avoid": ["fried", "spicy", "caffeine"]},
+      "remedies": ["ors_homemade", "coconut_water"],
+      "meds": ["paracetamol", "ors"], "avoid_meds": ["ibuprofen", "aspirin", "diclofenac"],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/dengue-and-severe-dengue"
+    },
+    {
+      "id": "malaria", "name": "Malaria", "mild": false, "urgency": "high",
+      "symptoms": {"fever with chills": 3, "shivering": 3, "chills": 2, "fever": 2, "sweating": 2, "headache": 1, "vomiting": 1, "fever comes and goes": 3},
+      "lab_signals": [["platelets", "low", 1], ["hemoglobin", "low", 1]],
+      "suggested_tests": ["Malaria rapid antigen test", "Peripheral blood smear for malaria parasite"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Does the fever come with shivering and then heavy sweating?", "type": "yes_no"},
+        {"q": "Have you travelled to or live in an area with malaria cases?", "type": "yes_no"}
+      ],
+      "overview": "Malaria is a parasite infection spread by mosquitoes. Fever with chills that comes in cycles is typical. It needs a blood test and prescription antimalarial treatment.",
+      "self_care": ["Get tested the same day", "Drink fluids, paracetamol for fever", "Use mosquito nets and repellent"],
+      "see_doctor_if": ["Always see a doctor for suspected malaria", "Confusion, jaundice, dark urine or breathing difficulty is an emergency"],
+      "diet": {"include": ["hydrating", "light", "soft", "protein"], "avoid": ["fried", "heavy"]},
+      "remedies": ["ors_homemade", "coconut_water"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/malaria"
+    },
+    {
+      "id": "typhoid", "name": "Typhoid (enteric fever)", "mild": false, "urgency": "high",
+      "symptoms": {"fever for more than a week": 3, "stepwise fever": 3, "fever": 2, "stomach pain": 2, "constipation": 1, "loose motions": 1, "weakness": 2, "loss of appetite": 2, "headache": 1},
+      "lab_signals": [["wbc", "low", 1], ["sgpt", "high", 1]],
+      "suggested_tests": ["Blood culture", "Typhidot IgM", "CBC"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Has the fever been rising slowly day by day for more than 5 days?", "type": "yes_no"},
+        {"q": "Have you eaten outside food or drunk untreated water recently?", "type": "yes_no"}
+      ],
+      "overview": "Typhoid is a bacterial infection spread through contaminated food and water. It causes prolonged fever, weakness and stomach upset and needs prescription antibiotics.",
+      "self_care": ["See a doctor for testing and antibiotics", "Drink boiled/filtered water", "Eat soft, freshly cooked food"],
+      "see_doctor_if": ["Always see a doctor for suspected typhoid", "Severe abdominal pain, blood in stool or confusion is an emergency"],
+      "diet": {"include": ["soft", "light", "hydrating", "protein", "bland"], "avoid": ["fried", "spicy", "raw", "high_fiber"]},
+      "remedies": ["ors_homemade", "coconut_water"],
+      "meds": ["paracetamol", "ors"], "avoid_meds": [],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/typhoid"
+    },
+    {
+      "id": "covid19", "name": "COVID-19", "mild": false, "urgency": "moderate",
+      "symptoms": {"loss of smell": 3, "loss of taste": 3, "fever": 1, "dry cough": 2, "sore throat": 1, "fatigue": 1, "body ache": 1},
+      "lab_signals": [], "suggested_tests": ["COVID-19 rapid antigen or RT-PCR"], "needs_lab": false,
+      "follow_up": [
+        {"q": "Have you lost your sense of smell or taste?", "type": "yes_no"},
+        {"q": "Do you have a pulse oximeter? What is your oxygen level (SpO2)?", "type": "text"}
+      ],
+      "overview": "COVID-19 is a viral respiratory infection. Most cases are mild, but oxygen level below 94% or breathing difficulty needs urgent care.",
+      "self_care": ["Rest, fluids and isolation", "Check oxygen level twice a day if you have an oximeter"],
+      "see_doctor_if": ["SpO2 below 94%", "Breathing difficulty or chest pain", "High fever beyond 3 days"],
+      "diet": {"include": ["warm", "protein", "vit_c", "hydrating"], "avoid": ["fried", "cold"]},
+      "remedies": ["steam_inhalation", "salt_water_gargle", "turmeric_milk"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://www.who.int/news-room/fact-sheets/detail/coronavirus-disease-(covid-19)"
+    },
+    {
+      "id": "pharyngitis", "name": "Sore throat (pharyngitis)", "mild": true, "urgency": "low",
+      "symptoms": {"sore throat": 3, "throat pain": 3, "pain while swallowing": 3, "hoarse voice": 2, "mild fever": 1},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Do you see white patches on your tonsils or have swollen neck glands?", "type": "yes_no"},
+        {"q": "Is there cough and runny nose along with the sore throat?", "type": "yes_no"}
+      ],
+      "overview": "Most sore throats are caused by viruses and get better in about a week. White patches with high fever and no cough may mean a bacterial (strep) infection that needs a doctor.",
+      "self_care": ["Warm salt-water gargles 3-4 times a day", "Warm fluids and honey", "Rest your voice"],
+      "see_doctor_if": ["Difficulty swallowing saliva or breathing", "White patches with high fever", "Lasts more than a week"],
+      "diet": {"include": ["warm", "soft", "hydrating"], "avoid": ["cold", "spicy", "fried"]},
+      "remedies": ["salt_water_gargle", "ginger_honey_tea", "turmeric_milk"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/sorethroat.html"
+    },
+    {
+      "id": "allergic_rhinitis", "name": "Allergic rhinitis (dust/pollen allergy)", "mild": true, "urgency": "low",
+      "symptoms": {"sneezing": 3, "itchy eyes": 3, "watery eyes": 2, "runny nose": 2, "itchy nose": 3, "allergy": 2, "dust": 1},
+      "lab_signals": [], "suggested_tests": ["Absolute eosinophil count (optional)"], "needs_lab": false,
+      "follow_up": [
+        {"q": "Do the sneezing fits happen in the morning or around dust/pollen?", "type": "yes_no"},
+        {"q": "Do you have fever with it?", "type": "yes_no"}
+      ],
+      "overview": "Allergic rhinitis is an allergy to dust, pollen or pets that causes repeated sneezing, itchy and runny nose. It is not an infection and has no fever.",
+      "self_care": ["Avoid triggers; keep bedding clean", "Wear a mask in dusty places", "Saline nasal rinse"],
+      "see_doctor_if": ["Wheezing or breathing difficulty", "Symptoms affect sleep or work despite home care"],
+      "diet": {"include": ["vit_c", "warm"], "avoid": ["cold"]},
+      "remedies": ["steam_inhalation", "tulsi_tea"],
+      "meds": ["cetirizine", "saline_nasal"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/hayfever.html"
+    },
+    {
+      "id": "sinusitis", "name": "Sinusitis", "mild": true, "urgency": "low",
+      "symptoms": {"facial pain": 3, "pain around eyes": 2, "forehead pain": 2, "blocked nose": 2, "thick nasal discharge": 3, "headache": 1, "pain when bending forward": 3},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Does the face or forehead pain get worse when you bend forward?", "type": "yes_no"},
+        {"q": "How long have you had the blocked nose?", "type": "text"}
+      ],
+      "overview": "Sinusitis is swelling of the sinuses, usually after a cold. Most cases are viral and improve within 10 days.",
+      "self_care": ["Steam inhalation", "Saline nasal rinse", "Warm compress over the face"],
+      "see_doctor_if": ["Symptoms beyond 10 days or getting worse after improving", "Swelling around the eyes or high fever"],
+      "diet": {"include": ["warm", "hydrating", "vit_c"], "avoid": ["cold", "fried"]},
+      "remedies": ["steam_inhalation", "ginger_honey_tea"],
+      "meds": ["paracetamol", "saline_nasal"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/sinusitis.html"
+    },
+    {
+      "id": "asthma", "name": "Asthma / wheezing", "mild": false, "urgency": "moderate",
+      "symptoms": {"wheezing": 3, "shortness of breath": 2, "chest tightness": 1, "cough at night": 2, "breathless on exertion": 2},
+      "lab_signals": [], "suggested_tests": ["Spirometry (lung function test)"], "needs_lab": false,
+      "follow_up": [
+        {"q": "Do you hear a whistling sound while breathing?", "type": "yes_no"},
+        {"q": "Is it worse at night, with exercise, cold air or dust?", "type": "yes_no"},
+        {"q": "Do you already have an inhaler prescribed?", "type": "yes_no"}
+      ],
+      "overview": "Asthma is long-term swelling of the airways causing wheezing, cough and breathlessness. It needs a doctor's inhaler plan.",
+      "self_care": ["Avoid smoke, dust and cold air", "Use your prescribed inhaler correctly"],
+      "see_doctor_if": ["You need your reliever inhaler more than twice a week", "Breathlessness at rest or lips turning blue (emergency)"],
+      "diet": {"include": ["warm", "vit_c", "light"], "avoid": ["cold", "fried"]},
+      "remedies": ["steam_inhalation"],
+      "meds": [], "avoid_meds": ["ibuprofen", "aspirin"],
+      "source": "https://medlineplus.gov/asthma.html"
+    },
+    {
+      "id": "gastroenteritis", "name": "Gastroenteritis / food poisoning", "mild": true, "urgency": "moderate",
+      "symptoms": {"loose motions": 3, "diarrhea": 3, "vomiting": 2, "nausea": 2, "stomach cramps": 2, "stomach pain": 1, "outside food": 2},
+      "lab_signals": [["sodium", "low", 1], ["potassium", "low", 1]], "suggested_tests": ["Stool routine (if more than 3 days)"], "needs_lab": false,
+      "follow_up": [
+        {"q": "How many loose motions or vomits in the last 24 hours?", "type": "number"},
+        {"q": "Is there blood or mucus in the stool?", "type": "yes_no"},
+        {"q": "Are you passing urine normally and able to keep fluids down?", "type": "yes_no"}
+      ],
+      "overview": "Gastroenteritis is a stomach and gut infection, often from contaminated food or water. The main danger is dehydration; most cases settle in 2-3 days.",
+      "self_care": ["ORS after every loose motion", "Small frequent sips if vomiting", "Bland food: khichdi, curd rice, banana"],
+      "see_doctor_if": ["Blood in stool, high fever, or more than 6-8 motions a day", "Not passing urine for 8 hours, very dry mouth, dizziness", "Lasts more than 3 days"],
+      "diet": {"include": ["bland", "hydrating", "soft", "probiotic"], "avoid": ["fried", "spicy", "dairy_heavy", "raw", "high_fiber", "caffeine"]},
+      "remedies": ["ors_homemade", "coconut_water", "banana_curd"],
+      "meds": ["ors"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/gastroenteritis.html"
+    },
+    {
+      "id": "acidity_gerd", "name": "Acidity / acid reflux (GERD)", "mild": true, "urgency": "low",
+      "symptoms": {"acidity": 3, "heartburn": 3, "burning in chest after eating": 3, "sour burps": 3, "burning": 1, "indigestion": 2, "bloating": 1, "upper stomach pain": 2},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Is the burning worse after meals, spicy food or when lying down?", "type": "yes_no"},
+        {"q": "Do you have difficulty swallowing, weight loss or black stools?", "type": "yes_no"},
+        {"q": "How much tea/coffee do you drink and do you smoke?", "type": "text"}
+      ],
+      "overview": "Acidity happens when stomach acid flows back into the food pipe, causing burning in the chest or upper stomach. Meal habits and stress make it worse.",
+      "self_care": ["Eat smaller meals, do not lie down for 2-3 hours after eating", "Reduce tea, coffee, spicy and fried food", "Raise the head end of the bed"],
+      "see_doctor_if": ["Difficulty swallowing, vomiting blood or black stools", "Weight loss", "Chest pain with sweating (rule out heart problem)"],
+      "diet": {"include": ["bland", "high_fiber", "light"], "avoid": ["spicy", "fried", "caffeine", "acidic", "heavy"]},
+      "remedies": ["jeera_water", "fennel_seeds", "cold_milk"],
+      "meds": ["antacid", "pantoprazole"], "avoid_meds": ["ibuprofen", "aspirin", "diclofenac"],
+      "source": "https://medlineplus.gov/gerd.html"
+    },
+    {
+      "id": "constipation", "name": "Constipation", "mild": true, "urgency": "low",
+      "symptoms": {"constipation": 3, "hard stools": 3, "no bowel movement": 2, "straining": 2, "bloating": 1},
+      "lab_signals": [["tsh", "high", 1]], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "How many times a week do you pass stool?", "type": "number"},
+        {"q": "How much water and fruit/vegetables do you have daily?", "type": "text"},
+        {"q": "Any blood in stool or unexplained weight loss?", "type": "yes_no"}
+      ],
+      "overview": "Constipation means hard or infrequent stools, usually from low fibre, low water or less activity.",
+      "self_care": ["2.5-3 litres of water a day", "Fibre: fruits, vegetables, whole grains, isabgol", "Daily walk"],
+      "see_doctor_if": ["Blood in stool or black stool", "Weight loss", "Lasts more than 3 weeks despite diet changes"],
+      "diet": {"include": ["high_fiber", "hydrating", "probiotic"], "avoid": ["refined", "fried"]},
+      "remedies": ["soaked_figs", "isabgol_natural", "warm_water_morning"],
+      "meds": ["isabgol"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/constipation.html"
+    },
+    {
+      "id": "migraine", "name": "Migraine", "mild": true, "urgency": "low",
+      "symptoms": {"one sided headache": 3, "throbbing headache": 3, "headache": 1, "nausea": 1, "sensitivity to light": 3, "sensitivity to sound": 2, "aura": 3},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Is the headache on one side and throbbing?", "type": "yes_no"},
+        {"q": "Does light or noise make it worse?", "type": "yes_no"},
+        {"q": "Any triggers you noticed: missed meals, less sleep, stress, screen time?", "type": "text"}
+      ],
+      "overview": "Migraine is a recurring headache, often on one side with nausea and sensitivity to light. Triggers include poor sleep, skipped meals, stress and dehydration.",
+      "self_care": ["Rest in a dark, quiet room", "Regular sleep and meals", "Keep a headache diary"],
+      "see_doctor_if": ["Sudden worst-ever headache (emergency)", "Headache with fever and stiff neck", "More than 4 attacks a month"],
+      "diet": {"include": ["hydrating", "magnesium", "light"], "avoid": ["caffeine", "processed", "fried"]},
+      "remedies": ["cold_compress", "ginger_honey_tea", "sleep_routine"],
+      "meds": ["paracetamol", "ibuprofen"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/migraine.html"
+    },
+    {
+      "id": "tension_headache", "name": "Tension headache", "mild": true, "urgency": "low",
+      "symptoms": {"headache": 2, "band like headache": 3, "pressure around head": 3, "neck pain": 2, "stress": 2, "screen time": 1},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Does it feel like a tight band around your head?", "type": "yes_no"},
+        {"q": "How many hours of screen time and sleep do you get daily?", "type": "text"}
+      ],
+      "overview": "Tension headache is the most common headache, a dull pressure around the head often linked to stress, posture, screen time and poor sleep.",
+      "self_care": ["Breaks from screens every 30-40 minutes", "Neck and shoulder stretches", "7-8 hours of sleep"],
+      "see_doctor_if": ["Headache daily for more than 2 weeks", "New headache after age 50", "Headache with vision changes, weakness or vomiting"],
+      "diet": {"include": ["hydrating", "light", "magnesium"], "avoid": ["caffeine"]},
+      "remedies": ["cold_compress", "deep_breathing", "sleep_routine"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/headache.html"
+    },
+    {
+      "id": "uti", "name": "Urinary tract infection (UTI)", "mild": false, "urgency": "moderate",
+      "symptoms": {"burning urination": 3, "burning while urinating": 3, "frequent urination": 3, "urgency to urinate": 2, "lower abdominal pain": 2, "cloudy urine": 2, "smelly urine": 2},
+      "lab_signals": [["wbc", "high", 1]], "suggested_tests": ["Urine routine and microscopy", "Urine culture"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Do you have burning or pain while passing urine?", "type": "yes_no"},
+        {"q": "Any fever, back/side pain or vomiting?", "type": "yes_no"},
+        {"q": "Is there any chance of pregnancy?", "type": "yes_no"}
+      ],
+      "overview": "A UTI is a bacterial infection of the bladder or urinary tract, more common in women. It usually needs prescription antibiotics after a urine test.",
+      "self_care": ["Drink plenty of water", "Do not hold urine for long", "See a doctor for a urine test"],
+      "see_doctor_if": ["Always, for testing and antibiotics", "Fever, back pain or vomiting (kidney infection)"],
+      "diet": {"include": ["hydrating", "vit_c", "probiotic"], "avoid": ["caffeine", "spicy"]},
+      "remedies": ["coconut_water"],
+      "meds": ["paracetamol"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/urinarytractinfections.html"
+    },
+    {
+      "id": "iron_deficiency_anemia", "name": "Iron-deficiency anemia", "mild": false, "urgency": "moderate",
+      "symptoms": {"fatigue": 2, "weakness": 2, "pale skin": 3, "breathless on exertion": 2, "dizziness": 1, "hair fall": 1, "brittle nails": 2, "craving ice": 2, "heavy periods": 2},
+      "lab_signals": [["hemoglobin", "low", 3], ["mcv", "low", 2], ["ferritin", "low", 3], ["iron", "low", 2]],
+      "suggested_tests": ["CBC", "Serum ferritin", "Serum iron studies"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Do you get tired or breathless easily on climbing stairs?", "type": "yes_no"},
+        {"q": "For women: are your periods heavy or longer than 7 days?", "type": "text"},
+        {"q": "Are you vegetarian, and how often do you eat green leafy vegetables?", "type": "text"}
+      ],
+      "overview": "Iron-deficiency anemia is very common in India, especially in women. Low iron reduces hemoglobin, causing tiredness, paleness and breathlessness.",
+      "self_care": ["Iron-rich foods with vitamin C (lemon, amla) to improve absorption", "Avoid tea/coffee within 1 hour of meals", "Iron tablets as advised by doctor"],
+      "see_doctor_if": ["Hemoglobin below 10 g/dL", "Black stools or heavy bleeding", "Chest pain or fainting"],
+      "diet": {"include": ["iron_rich", "vit_c", "protein"], "avoid": ["caffeine_with_meals"]},
+      "remedies": ["amla", "jaggery_chana"],
+      "meds": ["iron_tablet"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/anemia.html"
+    },
+    {
+      "id": "vitamin_d_deficiency", "name": "Vitamin D deficiency", "mild": true, "urgency": "low",
+      "symptoms": {"bone pain": 3, "body ache": 1, "muscle weakness": 2, "back pain": 1, "fatigue": 1, "low sunlight": 2},
+      "lab_signals": [["vitamin_d", "low", 4], ["calcium", "low", 1]], "suggested_tests": ["25-OH Vitamin D", "Serum calcium"], "needs_lab": true,
+      "follow_up": [
+        {"q": "How much time do you spend in sunlight daily?", "type": "text"},
+        {"q": "Do you have bone or lower back pain?", "type": "yes_no"}
+      ],
+      "overview": "Vitamin D deficiency is very common in India despite sunshine, due to indoor life and covered skin. It causes bone pain, muscle weakness and tiredness.",
+      "self_care": ["15-20 minutes of sunlight on arms and face (10 am - 3 pm) most days", "Vitamin D-rich foods: eggs, fish, fortified milk", "Supplements only as advised by doctor"],
+      "see_doctor_if": ["Level below 20 ng/mL", "Bone pain or fractures"],
+      "diet": {"include": ["vit_d", "calcium", "protein"], "avoid": []},
+      "remedies": ["sunlight"],
+      "meds": ["vitamin_d3"], "avoid_meds": [],
+      "source": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/"
+    },
+    {
+      "id": "vitamin_b12_deficiency", "name": "Vitamin B12 deficiency", "mild": true, "urgency": "low",
+      "symptoms": {"tingling": 3, "numbness in hands": 3, "numbness in feet": 3, "fatigue": 2, "memory problems": 2, "mouth ulcers": 1, "weakness": 1},
+      "lab_signals": [["vitamin_b12", "low", 4], ["mcv", "high", 2], ["hemoglobin", "low", 1]], "suggested_tests": ["Vitamin B12", "CBC"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Do you get tingling or numbness in hands or feet?", "type": "yes_no"},
+        {"q": "Are you vegetarian or vegan? Do you take metformin or acidity tablets regularly?", "type": "text"}
+      ],
+      "overview": "Vitamin B12 is mainly found in animal foods, so deficiency is common in vegetarians. It causes tiredness, tingling and anemia.",
+      "self_care": ["Milk, curd, paneer, eggs or fish daily", "Supplements as advised by doctor"],
+      "see_doctor_if": ["Numbness, balance problems or memory changes", "Level below 200 pg/mL"],
+      "diet": {"include": ["b12", "protein", "dairy"], "avoid": []},
+      "remedies": [],
+      "meds": ["vitamin_b12"], "avoid_meds": [],
+      "source": "https://ods.od.nih.gov/factsheets/VitaminB12-Consumer/"
+    },
+    {
+      "id": "hypothyroidism", "name": "Hypothyroidism (underactive thyroid)", "mild": false, "urgency": "moderate",
+      "symptoms": {"weight gain": 2, "feeling cold": 2, "fatigue": 2, "hair fall": 1, "dry skin": 2, "constipation": 1, "irregular periods": 1, "puffy face": 2},
+      "lab_signals": [["tsh", "high", 4], ["ft4", "low", 2], ["t4", "low", 2]], "suggested_tests": ["TSH", "Free T4"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Have you gained weight without eating more, or feel cold when others don't?", "type": "yes_no"},
+        {"q": "Anyone in your family with thyroid problems?", "type": "yes_no"}
+      ],
+      "overview": "In hypothyroidism the thyroid makes too little hormone, slowing metabolism. It is diagnosed with a TSH test and treated with daily thyroid tablets prescribed by a doctor.",
+      "self_care": ["Take thyroid tablet on an empty stomach if prescribed", "Regular exercise", "Recheck TSH as advised"],
+      "see_doctor_if": ["TSH above normal", "Pregnancy or planning pregnancy"],
+      "diet": {"include": ["protein", "high_fiber", "selenium"], "avoid": ["processed", "refined"]},
+      "remedies": [],
+      "meds": ["levothyroxine"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/hypothyroidism.html"
+    },
+    {
+      "id": "type2_diabetes", "name": "Type 2 diabetes / high blood sugar", "mild": false, "urgency": "moderate",
+      "symptoms": {"frequent urination": 2, "excessive thirst": 3, "increased hunger": 2, "weight loss": 1, "blurred vision": 1, "slow healing wounds": 2, "tingling": 1, "fatigue": 1},
+      "lab_signals": [["glucose_fasting", "high", 4], ["glucose_pp", "high", 3], ["glucose_random", "high", 3], ["hba1c", "high", 4]],
+      "suggested_tests": ["Fasting blood sugar", "Post-meal blood sugar", "HbA1c"], "needs_lab": true,
+      "follow_up": [
+        {"q": "Do you feel very thirsty and pass urine often, including at night?", "type": "yes_no"},
+        {"q": "Does anyone in your family have diabetes?", "type": "yes_no"},
+        {"q": "How active are you (walk/exercise minutes per day)?", "type": "text"}
+      ],
+      "overview": "Type 2 diabetes means the body cannot use insulin well, so blood sugar stays high. It is very common in India and is controlled with diet, exercise and medicines prescribed by a doctor.",
+      "self_care": ["Avoid sugar, sweets and sugary drinks; choose whole grains", "30 minutes of walking daily", "Check sugar regularly"],
+      "see_doctor_if": ["Fasting sugar 126+ or HbA1c 6.5%+", "Sugar above 300 or very thirsty and drowsy (urgent)"],
+      "diet": {"include": ["low_gi", "high_fiber", "protein"], "avoid": ["high_sugar", "refined", "fried", "sweet_fruit"]},
+      "remedies": ["methi_water", "walk_after_meals"],
+      "meds": ["metformin"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/diabetestype2.html"
+    },
+    {
+      "id": "hypertension", "name": "High blood pressure (hypertension)", "mild": false, "urgency": "moderate",
+      "symptoms": {"high bp": 3, "high blood pressure": 3, "headache at back of head": 2, "dizziness": 1, "palpitations": 1, "nosebleed": 1},
+      "lab_signals": [["sodium", "high", 1], ["cholesterol_total", "high", 1]], "suggested_tests": ["BP readings over a week", "Lipid profile", "Kidney function test"], "needs_lab": false,
+      "follow_up": [
+        {"q": "Have you measured your blood pressure? What were the readings?", "type": "text"},
+        {"q": "How much salt, pickles, papad or packaged food do you eat?", "type": "text"}
+      ],
+      "overview": "High blood pressure usually has no symptoms but damages the heart, brain and kidneys over time. Readings of 140/90 or more on repeated checks need a doctor.",
+      "self_care": ["Less than 5 g salt a day; avoid pickles, papad, chips", "30 minutes of walking daily", "Limit alcohol, stop smoking"],
+      "see_doctor_if": ["BP 140/90 or more on repeat", "BP 180/120 or more with headache, chest pain or weakness (emergency)"],
+      "diet": {"include": ["low_salt", "high_fiber", "potassium"], "avoid": ["high_salt", "fried", "processed"]},
+      "remedies": ["walk_after_meals", "deep_breathing"],
+      "meds": ["amlodipine"], "avoid_meds": ["ibuprofen", "diclofenac"],
+      "source": "https://medlineplus.gov/highbloodpressure.html"
+    },
+    {
+      "id": "dehydration", "name": "Dehydration / heat exhaustion", "mild": true, "urgency": "moderate",
+      "symptoms": {"dry mouth": 3, "dark urine": 3, "less urine": 2, "excessive thirst": 2, "dizziness": 2, "heat": 1, "muscle cramps": 1},
+      "lab_signals": [["sodium", "high", 2], ["urea", "high", 1], ["pcv", "high", 1]], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "How many glasses of water do you drink a day?", "type": "number"},
+        {"q": "Have you been out in the heat or had vomiting/loose motions?", "type": "yes_no"}
+      ],
+      "overview": "Dehydration happens when the body loses more water and salts than it takes in, often from heat, sweating, vomiting or diarrhea.",
+      "self_care": ["ORS, coconut water, lemon water with salt", "Rest in a cool place", "Avoid going out in peak afternoon heat"],
+      "see_doctor_if": ["No urine for 8 hours", "Confusion, fainting or very high body temperature (emergency)"],
+      "diet": {"include": ["hydrating", "light"], "avoid": ["caffeine", "fried", "spicy"]},
+      "remedies": ["ors_homemade", "coconut_water", "nimbu_pani"],
+      "meds": ["ors"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/dehydration.html"
+    },
+    {
+      "id": "muscular_back_pain", "name": "Muscular back pain", "mild": true, "urgency": "low",
+      "symptoms": {"back pain": 3, "lower back pain": 3, "stiffness": 2, "pain after lifting": 3, "sitting long hours": 2},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Does the pain spread down the leg, or is there numbness in the leg?", "type": "yes_no"},
+        {"q": "Any trouble controlling urine or stools?", "type": "yes_no"}
+      ],
+      "overview": "Most back pain comes from strained muscles or posture and improves in a few weeks with movement and simple care.",
+      "self_care": ["Keep moving gently; avoid long bed rest", "Hot fomentation 15-20 minutes", "Good posture and breaks from sitting"],
+      "see_doctor_if": ["Pain down the leg with numbness or weakness", "Loss of bladder/bowel control (emergency)", "Pain after a fall or with fever"],
+      "diet": {"include": ["calcium", "vit_d", "protein"], "avoid": []},
+      "remedies": ["hot_fomentation", "turmeric_milk"],
+      "meds": ["paracetamol", "ibuprofen"], "avoid_meds": [],
+      "source": "https://medlineplus.gov/backpain.html"
+    },
+    {
+      "id": "anxiety_stress", "name": "Stress / anxiety", "mild": true, "urgency": "low",
+      "symptoms": {"anxiety": 3, "stress": 2, "worry": 2, "palpitations": 1, "racing heart": 1, "insomnia": 2, "restlessness": 2, "panic": 2},
+      "lab_signals": [["tsh", "low", 1]], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "Do you feel worried or tense most days?", "type": "yes_no"},
+        {"q": "How many hours do you sleep, and is it disturbed?", "type": "text"}
+      ],
+      "overview": "Stress and anxiety are common and can cause a racing heart, poor sleep, headaches and stomach upset. Talking to someone and daily routines help.",
+      "self_care": ["Deep breathing or meditation 10 minutes a day", "Regular sleep and exercise", "Reduce caffeine"],
+      "see_doctor_if": ["Panic attacks or anxiety affecting daily life", "Any thoughts of self-harm (call Tele-MANAS 14416)"],
+      "diet": {"include": ["magnesium", "light", "probiotic"], "avoid": ["caffeine"]},
+      "remedies": ["deep_breathing", "sleep_routine", "chamomile_tea"],
+      "meds": [], "avoid_meds": [],
+      "source": "https://medlineplus.gov/anxiety.html"
+    },
+    {
+      "id": "insomnia", "name": "Sleep problems (insomnia)", "mild": true, "urgency": "low",
+      "symptoms": {"insomnia": 3, "cannot sleep": 3, "trouble sleeping": 3, "waking at night": 2, "daytime sleepiness": 1},
+      "lab_signals": [], "suggested_tests": [], "needs_lab": false,
+      "follow_up": [
+        {"q": "What time do you go to bed and use your phone in bed?", "type": "text"},
+        {"q": "Do you snore loudly or wake up choking?", "type": "yes_no"}
+      ],
+      "overview": "Insomnia is difficulty falling or staying asleep. Most cases improve with a fixed routine and less screen use at night.",
+      "self_care": ["Same sleep and wake time daily", "No screens 1 hour before bed", "No tea/coffee after 4 pm"],
+      "see_doctor_if": ["Loud snoring with breathing pauses", "Sleep problems for more than a month"],
+      "diet": {"include": ["light", "magnesium"], "avoid": ["caffeine", "heavy"]},
+      "remedies": ["sleep_routine", "chamomile_tea", "turmeric_milk"],
+      "meds": [], "avoid_meds": [],
+      "source": "https://medlineplus.gov/insomnia.html"
+    }
+  ]
+}

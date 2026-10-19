@@ -1,0 +1,153 @@
+{
+  "_note": "Adult reference information for clinician review only, summarised from product labels (openFDA / CDSCO / NLEM). 'otc': false means prescription-only in India: the app shows timing guidance but never a dose. Schedule patterns: as_needed, once, twice, thrice, weekly.",
+  "drugs": [
+    {
+      "id": "paracetamol", "name": "Paracetamol (acetaminophen)", "brands": ["Dolo 650", "Crocin", "Calpol"], "class": "analgesic/antipyretic", "otc": true,
+      "purpose": "Lowers fever and relieves mild-to-moderate pain",
+      "dose": "500-650 mg per dose", "pattern": "as_needed", "gap_hours": 6, "max_per_day": 4, "max_text": "Not more than 4 doses (about 2.6 g) in 24 hours",
+      "food": "after", "allergy_terms": ["paracetamol", "acetaminophen", "crocin", "dolo", "calpol"],
+      "avoid_if": ["liver disease", "cirrhosis", "hepatitis", "alcohol"],
+      "interactions": [
+        {"terms": ["warfarin", "acitrom", "acenocoumarol"], "severity": "moderate", "note": "Regular use can raise INR; doctor should monitor."},
+        {"terms": ["paracetamol", "crocin", "dolo", "combiflam", "sinarest", "cold"], "severity": "major", "note": "Many cold/pain combinations already contain paracetamol. Do not double up."}
+      ],
+      "warnings": ["Do not combine with other paracetamol-containing products", "Avoid alcohol"],
+      "source": "https://medlineplus.gov/druginfo/meds/a681004.html"
+    },
+    {
+      "id": "ibuprofen", "name": "Ibuprofen", "brands": ["Brufen", "Ibugesic"], "class": "nsaid", "otc": true,
+      "purpose": "Relieves pain and inflammation",
+      "dose": "200-400 mg per dose", "pattern": "as_needed", "gap_hours": 8, "max_per_day": 3, "max_text": "Not more than 1200 mg in 24 hours without a doctor",
+      "food": "after", "allergy_terms": ["ibuprofen", "brufen", "nsaid", "aspirin", "diclofenac", "naproxen", "painkiller"],
+      "avoid_if": ["ulcer", "gastritis", "stomach bleeding", "kidney", "heart failure", "asthma", "pregnan", "dengue"],
+      "interactions": [
+        {"terms": ["warfarin", "acitrom", "apixaban", "rivaroxaban", "dabigatran", "clopidogrel", "aspirin", "ecosprin"], "severity": "major", "note": "Increased bleeding risk."},
+        {"terms": ["telmisartan", "losartan", "ramipril", "enalapril", "lisinopril", "furosemide", "hydrochlorothiazide"], "severity": "moderate", "note": "Can reduce BP control and harm kidneys."},
+        {"terms": ["prednisolone", "steroid", "methotrexate", "lithium"], "severity": "major", "note": "Higher risk of ulcers or drug toxicity."}
+      ],
+      "warnings": ["Always take after food", "Not in dengue, stomach ulcer, kidney disease or late pregnancy"],
+      "source": "https://medlineplus.gov/druginfo/meds/a682159.html"
+    },
+    {
+      "id": "cetirizine", "name": "Cetirizine", "brands": ["Cetzine", "Okacet", "Alerid"], "class": "antihistamine", "otc": true,
+      "purpose": "Relieves sneezing, runny nose and itching from allergy or cold",
+      "dose": "10 mg", "pattern": "once", "slot": "bedtime", "max_per_day": 1, "max_text": "Once a day",
+      "food": "any", "allergy_terms": ["cetirizine", "levocetirizine", "hydroxyzine", "antihistamine"],
+      "avoid_if": ["kidney", "pregnan"],
+      "interactions": [
+        {"terms": ["alprazolam", "clonazepam", "zolpidem", "diazepam", "sleeping", "alcohol"], "severity": "moderate", "note": "Extra drowsiness."}
+      ],
+      "warnings": ["May cause drowsiness; avoid driving if sleepy"],
+      "source": "https://medlineplus.gov/druginfo/meds/a698026.html"
+    },
+    {
+      "id": "saline_nasal", "name": "Saline nasal drops/spray", "brands": ["Nasivion Saline", "Otrivin Saline"], "class": "saline", "otc": true,
+      "purpose": "Loosens mucus and clears a blocked nose",
+      "dose": "2-3 drops or 1-2 sprays in each nostril", "pattern": "thrice", "max_per_day": 4, "max_text": "Up to 4 times a day",
+      "food": "any", "allergy_terms": [], "avoid_if": [], "interactions": [],
+      "warnings": [],
+      "source": "https://medlineplus.gov/ency/patientinstructions/000801.htm"
+    },
+    {
+      "id": "ors", "name": "Oral rehydration salts (ORS)", "brands": ["Electral", "WHO-ORS"], "class": "rehydration", "otc": true,
+      "purpose": "Replaces water and salts lost in diarrhea, vomiting or fever",
+      "dose": "1 sachet in 1 litre of clean water; sip 200-400 ml after each loose stool", "pattern": "as_needed", "gap_hours": 0, "max_per_day": 0, "max_text": "Use the mixed solution within 24 hours",
+      "food": "any", "allergy_terms": [], "avoid_if": ["kidney failure", "dialysis"], "interactions": [],
+      "warnings": ["Mix with the exact amount of water written on the packet"],
+      "source": "https://www.who.int/publications/i/item/WHO-FCH-CAH-06.1"
+    },
+    {
+      "id": "antacid", "name": "Antacid (aluminium + magnesium hydroxide)", "brands": ["Digene", "Gelusil"], "class": "antacid", "otc": true,
+      "purpose": "Quick relief from acidity and heartburn",
+      "dose": "10-20 ml liquid or 1-2 chewable tablets", "pattern": "as_needed", "gap_hours": 4, "max_per_day": 4, "max_text": "Up to 4 times a day, 1 hour after meals and at bedtime",
+      "food": "after", "allergy_terms": ["digene", "gelusil", "antacid"], "avoid_if": ["kidney"],
+      "interactions": [
+        {"terms": ["iron", "ferrous", "levothyroxine", "thyronorm", "eltroxin", "ciprofloxacin", "doxycycline", "azithromycin"], "severity": "moderate", "note": "Antacids block absorption; keep 2-4 hours apart."}
+      ],
+      "warnings": ["Do not use daily for more than 2 weeks without a doctor"],
+      "source": "https://medlineplus.gov/druginfo/meds/a601013.html"
+    },
+    {
+      "id": "pantoprazole", "name": "Pantoprazole", "brands": ["Pan 40", "Pantocid"], "class": "ppi", "otc": false,
+      "purpose": "Reduces stomach acid production (acidity, reflux, ulcers)",
+      "dose": "As prescribed (commonly 40 mg)", "pattern": "once", "slot": "before_breakfast", "max_per_day": 1, "max_text": "Once a day unless the doctor says otherwise",
+      "food": "empty_stomach", "allergy_terms": ["pantoprazole", "omeprazole", "rabeprazole", "esomeprazole", "ppi"], "avoid_if": [],
+      "interactions": [
+        {"terms": ["methotrexate"], "severity": "moderate", "note": "Can raise methotrexate levels."},
+        {"terms": ["clopidogrel"], "severity": "minor", "note": "Doctor may prefer pantoprazole over omeprazole with clopidogrel."}
+      ],
+      "warnings": ["Long-term use can lower vitamin B12 and magnesium"],
+      "source": "https://medlineplus.gov/druginfo/meds/a601246.html"
+    },
+    {
+      "id": "isabgol", "name": "Psyllium husk (isabgol)", "brands": ["Sat Isabgol", "Naturolax"], "class": "fibre laxative", "otc": true,
+      "purpose": "Softens stool and relieves constipation",
+      "dose": "1-2 teaspoons (5-10 g) in a full glass of water", "pattern": "once", "slot": "bedtime", "max_per_day": 1, "max_text": "Once or twice a day with plenty of water",
+      "food": "any", "allergy_terms": ["psyllium", "isabgol", "ispaghula"], "avoid_if": ["bowel obstruction", "difficulty swallowing"],
+      "interactions": [
+        {"terms": ["*"], "severity": "minor", "note": "Take other medicines 2 hours apart."}
+      ],
+      "warnings": ["Always drink a full glass of water with it"],
+      "source": "https://medlineplus.gov/druginfo/meds/a601104.html"
+    },
+    {
+      "id": "iron_tablet", "name": "Iron supplement (ferrous salt)", "brands": ["Livogen", "Orofer XT", "Fefol"], "class": "iron", "otc": false,
+      "purpose": "Treats iron-deficiency anemia",
+      "dose": "As advised by doctor", "pattern": "once", "slot": "before_lunch", "max_per_day": 1, "max_text": "Once a day unless the doctor says otherwise",
+      "food": "before", "allergy_terms": ["iron", "ferrous"], "avoid_if": ["thalassemia", "hemochromatosis"],
+      "interactions": [
+        {"terms": ["levothyroxine", "thyronorm", "eltroxin"], "severity": "moderate", "note": "Keep 4 hours apart."},
+        {"terms": ["calcium", "antacid", "digene", "gelusil", "ciprofloxacin", "doxycycline"], "severity": "moderate", "note": "Keep 2 hours apart."}
+      ],
+      "warnings": ["Take with lemon water or amla, not with tea, coffee or milk", "Stools may turn black; this is expected"],
+      "source": "https://medlineplus.gov/druginfo/meds/a682778.html"
+    },
+    {
+      "id": "vitamin_d3", "name": "Vitamin D3 (cholecalciferol)", "brands": ["Uprise D3 60K", "Calcirol"], "class": "vitamin", "otc": false,
+      "purpose": "Corrects vitamin D deficiency",
+      "dose": "As advised by doctor (commonly 60,000 IU once a week for 8 weeks)", "pattern": "weekly", "slot": "after_lunch", "max_per_day": 1, "max_text": "Do not exceed the doctor's course",
+      "food": "after", "allergy_terms": ["cholecalciferol", "vitamin d"], "avoid_if": ["high calcium", "kidney stone", "sarcoidosis"],
+      "interactions": [], "warnings": ["Take with a meal that has some fat (milk, curd, ghee)"],
+      "source": "https://ods.od.nih.gov/factsheets/VitaminD-Consumer/"
+    },
+    {
+      "id": "vitamin_b12", "name": "Vitamin B12 (methylcobalamin)", "brands": ["Nurokind", "Methycobal"], "class": "vitamin", "otc": true,
+      "purpose": "Corrects vitamin B12 deficiency",
+      "dose": "1500 mcg", "pattern": "once", "slot": "after_breakfast", "max_per_day": 1, "max_text": "Once a day",
+      "food": "after", "allergy_terms": ["methylcobalamin", "cyanocobalamin", "b12"], "avoid_if": [],
+      "interactions": [{"terms": ["metformin", "pantoprazole", "omeprazole"], "severity": "minor", "note": "These medicines lower B12 over time; supplements help."}],
+      "warnings": [],
+      "source": "https://ods.od.nih.gov/factsheets/VitaminB12-Consumer/"
+    },
+    {
+      "id": "levothyroxine", "name": "Levothyroxine", "brands": ["Thyronorm", "Eltroxin"], "class": "thyroid hormone", "otc": false,
+      "purpose": "Replaces thyroid hormone in hypothyroidism",
+      "dose": "As prescribed (dose depends on TSH and weight)", "pattern": "once", "slot": "on_waking", "max_per_day": 1, "max_text": "Once a day",
+      "food": "empty_stomach", "allergy_terms": ["levothyroxine", "thyroxine"], "avoid_if": [],
+      "interactions": [{"terms": ["iron", "ferrous", "calcium", "antacid", "digene"], "severity": "moderate", "note": "Keep 4 hours apart."}],
+      "warnings": ["Take with plain water 30-60 minutes before breakfast or tea"],
+      "source": "https://medlineplus.gov/druginfo/meds/a682461.html"
+    },
+    {
+      "id": "metformin", "name": "Metformin", "brands": ["Glycomet", "Glyciphage"], "class": "antidiabetic", "otc": false,
+      "purpose": "Lowers blood sugar in type 2 diabetes",
+      "dose": "As prescribed", "pattern": "twice", "max_per_day": 2, "max_text": "As prescribed",
+      "food": "after", "allergy_terms": ["metformin"], "avoid_if": ["kidney", "liver disease", "alcohol"],
+      "interactions": [{"terms": ["alcohol"], "severity": "major", "note": "Risk of lactic acidosis."}],
+      "warnings": ["Take with or right after meals to reduce stomach upset"],
+      "source": "https://medlineplus.gov/druginfo/meds/a696005.html"
+    },
+    {
+      "id": "amlodipine", "name": "Amlodipine", "brands": ["Amlong", "Stamlo"], "class": "antihypertensive", "otc": false,
+      "purpose": "Lowers blood pressure",
+      "dose": "As prescribed", "pattern": "once", "slot": "after_breakfast", "max_per_day": 1, "max_text": "Once a day",
+      "food": "any", "allergy_terms": ["amlodipine"], "avoid_if": [],
+      "interactions": [{"terms": ["simvastatin"], "severity": "moderate", "note": "Simvastatin dose should not exceed 20 mg."}],
+      "warnings": ["Do not stop suddenly; may cause ankle swelling"],
+      "source": "https://medlineplus.gov/druginfo/meds/a692044.html"
+    }
+  ],
+  "avoid_names": {
+    "ibuprofen": "Ibuprofen (Brufen, Combiflam)", "aspirin": "Aspirin (Disprin, Ecosprin)", "diclofenac": "Diclofenac (Voveran)"
+  }
+}

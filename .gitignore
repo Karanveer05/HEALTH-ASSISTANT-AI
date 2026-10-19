@@ -1,0 +1,14 @@
+# secrets (API keys) - never upload
+backend/.env
+
+# patient data, encryption keys, vector index (created when the app runs)
+backend/storage/
+
+# installed packages and build output (recreated by setup.bat)
+backend/.venv/
+frontend/node_modules/
+frontend/dist/
+
+__pycache__/
+*.pyc
+.pytest_cache/
